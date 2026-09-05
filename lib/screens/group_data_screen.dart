@@ -54,6 +54,7 @@ class GroupDataScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start, // Ditambahkan agar avatar tetap rata atas jika Card memanjang
                 children: [
                   // Avatar / Icon Profil
                   CircleAvatar(
@@ -91,7 +92,11 @@ class GroupDataScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 6),
-                        Row(
+                        
+                        // PERUBAHAN: Mengganti Row dengan Wrap
+                        Wrap(
+                          spacing: 8.0, // Jarak horizontal antar Chip
+                          runSpacing: 4.0, // Jarak vertikal jika Chip turun ke baris baru
                           children: [
                             Chip(
                               avatar: const Icon(Icons.school, size: 16),
@@ -99,7 +104,6 @@ class GroupDataScreen extends StatelessWidget {
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
                             ),
-                            const SizedBox(width: 8),
                             Chip(
                               avatar: const Icon(Icons.calendar_today, size: 16),
                               label: Text(member['angkatan']!),

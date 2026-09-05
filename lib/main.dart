@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/group': (context) => const GroupDataScreen(),
-        // '/math': (context) => const MathScreen(),
+        '/math': (context) => const MathScreen(),
         '/odd_even': (context) => const OddEvenScreen(),
-        // '/sum_total': (context) => const SumTotalScreen(),
+        '/sum_total': (context) => const SumTotalScreen(),
       },
       // Halaman awal
       home: const LoginScreen(),

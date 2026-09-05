@@ -47,7 +47,6 @@ class HomeScreen extends StatelessWidget {
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
             onPressed: () {
-              // Kembali ke halaman Login & hapus riwayat tumpukan halaman
               Navigator.pushReplacementNamed(context, '/login');
             },
           )
@@ -75,17 +74,17 @@ class HomeScreen extends StatelessWidget {
               child: GridView.builder(
                 itemCount: menuItems.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // 2 Kolom Card
+                  crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  childAspectRatio: 1.1,
+                  // PERUBAHAN 1: Ubah rasio kartu agar lebih tinggi 
+                  childAspectRatio: 1.1, 
                 ),
                 itemBuilder: (context, index) {
                   final item = menuItems[index];
 
                   return InkWell(
                     onTap: () {
-                      // Pindah ke route sesuai menu yang diklik
                       Navigator.pushNamed(context, item['route']);
                     },
                     borderRadius: BorderRadius.circular(16),
@@ -95,37 +94,47 @@ class HomeScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        // PERUBAHAN 2: Kurangi padding dalam kartu agar ruang lebih lega
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, 
+                          vertical: 12.0,
+                        ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CircleAvatar(
-                              radius: 26,
+                              // PERUBAHAN 3: Sedikit mengecilkan ukuran icon/avatar
+                              radius: 22, 
                               backgroundColor: (item['color'] as Color).withOpacity(0.15),
                               child: Icon(
                                 item['icon'] as IconData,
                                 color: item['color'] as Color,
-                                size: 28,
+                                size: 24,
                               ),
                             ),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 8),
                             Text(
                               item['title'],
                               textAlign: TextAlign.center,
+                              maxLines: 1, // Agar title tidak makan 2 baris
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
+                                fontSize: 14,
                               ),
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              item['subtitle'],
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey[600],
+                            // PERUBAHAN 4: Bungkus subtitle dengan Expanded
+                            Expanded(
+                              child: Text(
+                                item['subtitle'],
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: Colors.grey[600],
+                                ),
                               ),
                             ),
                           ],
