@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/group': (context) => const GroupDataScreen(),
         // '/math': (context) => const MathScreen(),
-        // '/odd_even': (context) => const OddEvenScreen(),
+        '/odd_even': (context) => const OddEvenScreen(),
         // '/sum_total': (context) => const SumTotalScreen(),
       },
       // Halaman awal
