@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
     final List<Map<String, dynamic>> menuItems = [
       {
         'title': 'Data Kelompok',
-        'subtitle': 'Daftar nama & NIM anggota',
+        'subtitle': 'Daftar anggota kelompok kita',
         'icon': Icons.people_alt_rounded,
         'color': Colors.indigo,
         'route': '/group',
@@ -59,7 +59,7 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Selamat Datang! 👋',
+              'Selamat Datang!!!',
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

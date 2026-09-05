@@ -8,26 +8,26 @@ class GroupDataScreen extends StatelessWidget {
     // Data Anggota Kelompok
     final List<Map<String, String>> groupMembers = [
       {
-        'nama': 'Nama Anggota 1',
-        'nim': '1234567890',
+        'nama': 'Dimas Febryansyah Al Ghiffary',
+        'nim': '124240145',
         'angkatan': '2024',
         'prodi': 'Sistem Informasi',
       },
       {
-        'nama': 'Nama Anggota 2',
-        'nim': '1234567891',
+        'nama': 'Abelyo Gidheoni Ginting',
+        'nim': '124240124',
         'angkatan': '2024',
         'prodi': 'Sistem Informasi',
       },
       {
-        'nama': 'Nama Anggota 3',
-        'nim': '1234567892',
+        'nama': 'Muhammad Rifqi Navis FS',
+        'nim': '124240133',
         'angkatan': '2024',
         'prodi': 'Sistem Informasi',
       },
       {
-        'nama': 'Nama Anggota 4',
-        'nim': '1234567893',
+        'nama': 'Thirafi Naufal Zakiri',
+        'nim': '124240148',
         'angkatan': '2024',
         'prodi': 'Sistem Informasi',
       },
