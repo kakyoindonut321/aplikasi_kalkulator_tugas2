@@ -1,10 +1,10 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
-import 'screens/group_data_screen.dart';
-import 'screens/math_screen.dart';
-import 'screens/odd_even_screen.dart';
-import 'screens/sum_total_screen.dart';
+//import 'screens/group_data_screen.dart';
+//import 'screens/math_screen.dart';
+//import 'screens/odd_even_screen.dart';
+//import 'screens/sum_total_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       // Mendaftarkan semua route untuk navigasi
       routes: {
-        // '/login': (context) => const LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         // '/group': (context) => const GroupDataScreen(),
         // '/math': (context) => const MathScreen(),
         // '/odd_even': (context) => const OddEvenScreen(),
