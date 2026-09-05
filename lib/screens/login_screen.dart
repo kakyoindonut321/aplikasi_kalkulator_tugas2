@@ -22,7 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (username == 'admin' && password == '123456') {
         _message = '✅ Login berhasil!';
         // Gunakan pushNamed sesuai route yang sudah didaftarkan di main.dart
-        Navigator.pushReplacementNamed(context, '/group');
+        Navigator.pushReplacementNamed(context, '/home');
       } else {
         _message = '❌ Username atau password salah!';
       }
