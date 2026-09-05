@@ -21,11 +21,8 @@ class _LoginScreenState extends State<LoginScreen> {
       
       if (username == 'admin' && password == '123456') {
         _message = '✅ Login berhasil!';
-        // Pindah ke halaman data kelompok
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const GroupDataScreen()),
-        );
+        // Gunakan pushNamed sesuai route yang sudah didaftarkan di main.dart
+        Navigator.pushReplacementNamed(context, '/group');
       } else {
         _message = '❌ Username atau password salah!';
       }
@@ -85,49 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
             const Text(
               'Gunakan: admin / 123456',
               style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// Halaman data kelompok setelah login
-class GroupDataScreen extends StatelessWidget {
-  const GroupDataScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Data Kelompok'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              '👋 Data Kelompok',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Nama: [Nama Anggota 1]'),
-              subtitle: Text('NIM: [NIM Anggota 1]'),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Nama: [Nama Anggota 2]'),
-              subtitle: Text('NIM: [NIM Anggota 2]'),
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text('Nama: [Nama Anggota 3]'),
-              subtitle: Text('NIM: [NIM Anggota 3]'),
             ),
           ],
         ),
