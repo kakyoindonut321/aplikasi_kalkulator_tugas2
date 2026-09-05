@@ -23,11 +23,11 @@ class MyApp extends StatelessWidget {
       ),
       // Mendaftarkan semua route untuk navigasi
       routes: {
-        '/login': (context) => const LoginScreen(),
-        '/group': (context) => const GroupDataScreen(),
-        '/math': (context) => const MathScreen(),
-        '/odd_even': (context) => const OddEvenScreen(),
-        '/sum_total': (context) => const SumTotalScreen(),
+        // '/login': (context) => const LoginScreen(),
+        // '/group': (context) => const GroupDataScreen(),
+        // '/math': (context) => const MathScreen(),
+        // '/odd_even': (context) => const OddEvenScreen(),
+        // '/sum_total': (context) => const SumTotalScreen(),
       },
       // Halaman awal
       home: const LoginScreen(),
