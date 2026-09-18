@@ -35,6 +35,13 @@ class HomeScreen extends StatelessWidget {
         'color': Colors.deepPurple,
         'route': '/sum_total',
       },
+      {
+        'title': 'Stopwatch',
+        'subtitle': 'Hitung waktu mulai dan berhenti',
+        'icon': Icons.timer_rounded,
+        'color': Colors.red,
+        'route': '/stopwatch',
+      },
     ];
 
     return Scaffold(
@@ -104,8 +111,8 @@ class HomeScreen extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               // PERUBAHAN 3: Sedikit mengecilkan ukuran icon/avatar
-                              radius: 22, 
-                              backgroundColor: (item['color'] as Color).withOpacity(0.15),
+                              radius: 22,
+                              backgroundColor: (item['color'] as Color).withValues(alpha: 0.15),
                               child: Icon(
                                 item['icon'] as IconData,
                                 color: item['color'] as Color,
