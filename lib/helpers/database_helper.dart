@@ -105,4 +105,20 @@ class DatabaseHelper {
     final db = await instance.database;
     return await db.delete('menu', where: 'id = ?', whereArgs: [id]);
   }
+
+  // Fungsi Check Login
+  Future<UserModel?> login(String username, String password) async {
+    final db = await instance.database;
+    final result = await db.query(
+      'users',
+      where: 'username = ? AND password = ?',
+      whereArgs: [username, password],
+    );
+
+    if (result.isNotEmpty) {
+      return UserModel.fromMap(result.first);
+    } else {
+      return null; // Login gagal (username/password salah)
+    }
+  }
 }
