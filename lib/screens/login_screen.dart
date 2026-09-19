@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// Template colors WARMIN-DO (disesuaikan dengan project)
-const teal = Color(0xFF26A69A);
-const tealDark = Color(0xFF00897B);
-const yellow = Color(0xFFFBC02D);
-const white = Color(0xFFFFFFFF);
-const textDark = Color(0xFF333333);
-const cardBg = Color(0xFFF5F5F5);
-const greyText = Color(0xFF9E9E9E);
-const greyLightText = Color(0xFFBDBDBD);
-const greyMidText = Color(0xFF757575);
+import '../helpers/database_helper.dart'; // Sesuaikan lokasi DatabaseHelper kamu
+
+// === WARMINDO COLOR PALETTE ===
+const Color warmindoRed = Color(0xFFE51A24);
+const Color warmindoYellow = Color(0xFFFFD100);
+const Color warmindoGreen = Color(0xFF008752);
+const Color warmindoBg = Color(0xFFFAF7F2);
+const Color textDark = Color(0xFF2C2C2C);
+const Color textMuted = Color(0xFF757575);
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,271 +22,280 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _isObscure = true;
   String? _errorMessage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // === HEADER (gaya WARMIN-DO dari TestUi) ===
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 48,
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: teal,
-                        borderRadius: BorderRadius.circular(14),
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF26A69A).withValues(alpha: 0.13),
-                            blurRadius: 12,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.lock_outline,
-                        color: white,
-                        size: 26,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'LOGIN',
-                            style: TextStyle(
-                              color: teal,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w800,
-                              letterSpacing: 1.5,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Aplikasi Tugas 3',
-                            style: TextStyle(
-                              color: textDark,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.notifications_none_rounded, color: textDark),
-                          style: IconButton.styleFrom(backgroundColor: Colors.white),
-                        ),
-                        Positioned(
-                          right: 6,
-                          top: 4,
-                          child: Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                              color: yellow,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // === BANNER PROMOSI (gaya WARMIN-DO dari TestUi) ===
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: teal,
-                  borderRadius: BorderRadius.circular(22),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFF26A69A).withValues(alpha: 0.13),
-                      blurRadius: 16,
-                      offset: const Offset(0, 7),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'SELAMAT DATANG!',
-                            style: TextStyle(
-                              color: yellow,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.2,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            'Masuk untuk\nmelanjutkan',
-                            style: TextStyle(
-                              color: white,
-                              fontSize: 26,
-                              height: 1.08,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Aplikasi Mobile - Kelompok 4 SI',
-                            style: const TextStyle(color: Color(0xFFDCDCDC), fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 70,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        color: yellow,
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(color: white, width: 3),
-                      ),
-                      child: const Icon(
-                        Icons.login,
-                        color: tealDark,
-                        size: 40,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // === FORM LOGIN ===
-              Card(
-                elevation: 0,
-                color: white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                  side: BorderSide(color: teal.withValues(alpha: 0.25), width: 1.5),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(18),
+      backgroundColor: warmindoBg,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // === HEADER SPANDUK WARMINDO (MERAH -> KUNING -> HIJAU) ===
+            CustomPaint(
+              painter: WarmindoHeaderPainter(),
+              child: SizedBox(
+                width: double.infinity,
+                height:
+                    280, // Tinggi diperbesar agar teks & logo masuk sempurna
+                child: SafeArea(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                          hintText: 'Masukkan username',
-                          prefixIcon: Icon(Icons.person_outline, color: teal, size: 20),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide(color: teal.withValues(alpha: 0.3)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(color: teal, width: 2),
-                          ),
-                          filled: true,
-                          fillColor: teal.withValues(alpha: 0.04),
-                        ),
-                      ),
-                      const SizedBox(height: 14),
-                      TextField(
-                        controller: _passwordController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          hintText: 'Masukkan password',
-                          prefixIcon: Icon(Icons.lock_outline, color: teal, size: 20),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: BorderSide(color: teal.withValues(alpha: 0.3)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(14),
-                            borderSide: const BorderSide(color: teal, width: 2),
-                          ),
-                          filled: true,
-                          fillColor: teal.withValues(alpha: 0.04),
-                        ),
-                      ),
-                      if (_errorMessage != null) ...[
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            const Icon(Icons.error_outline, color: Colors.red, size: 18),
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                _errorMessage!,
-                                style: const TextStyle(color: Colors.red, fontSize: 13),
-                              ),
+                      const SizedBox(height: 10),
+                      // Logo Icon Mangkok
+                      Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
                           ],
                         ),
-                      ],
+                        child: const Icon(
+                          Icons.ramen_dining_rounded,
+                          color: warmindoRed,
+                          size: 48,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Title WARMINDO (Sangat kontras di atas Merah)
+                      const Text(
+                        'WARMINDO',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 2.5,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0, 2),
+                              blurRadius: 6.0,
+                              color: Colors.black38,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Text(
+                        'KASIR & MANAJEMEN MENU',
+                        style: TextStyle(
+                          color: warmindoYellow,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+            ),
 
-              // === Tombol Login ===
-              ElevatedButton(
-                onPressed: _isLoading ? null : _handleLogin,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: teal,
-                  foregroundColor: white,
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                  elevation: 2,
-                ),
-                child: _isLoading
-                    ? const SizedBox(height: 20, child: CircularProgressIndicator(color: white, strokeWidth: 2))
-                    : const Text('MASUK', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(height: 14),
+            // === FORM LOGIN ===
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: warmindoYellow.withValues(alpha: 0.8),
+                        width: 2,
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0x11000000),
+                          blurRadius: 16,
+                          offset: Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(22),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Silakan Masuk',
+                            style: TextStyle(
+                              color: textDark,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const Text(
+                            'Masukkan akun untuk mengelola pesanan & menu.',
+                            style: TextStyle(color: textMuted, fontSize: 12),
+                          ),
+                          const SizedBox(height: 20),
 
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _usernameController.text = 'admin';
-                    _passwordController.text = '123456';
-                  });
-                },
-                child: const Text(
-                  'Gunakan akun demo (admin / 123456)',
-                  style: TextStyle(color: teal, fontSize: 12),
-                ),
+                          // Field Username
+                          TextField(
+                            controller: _usernameController,
+                            decoration: InputDecoration(
+                              labelText: 'Username',
+                              hintText: 'Masukkan username',
+                              prefixIcon: const Icon(
+                                Icons.person,
+                                color: warmindoRed,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: warmindoRed,
+                                  width: 2,
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: warmindoBg,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Field Password
+                          TextField(
+                            controller: _passwordController,
+                            obscureText: _isObscure,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              hintText: 'Masukkan password',
+                              prefixIcon: const Icon(
+                                Icons.lock,
+                                color: warmindoRed,
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isObscure
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: textMuted,
+                                ),
+                                onPressed: () {
+                                  setState(() => _isObscure = !_isObscure);
+                                },
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: Colors.grey.shade300,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: const BorderSide(
+                                  color: warmindoRed,
+                                  width: 2,
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: warmindoBg,
+                            ),
+                          ),
+
+                          // Pesan Error
+                          if (_errorMessage != null) ...[
+                            const SizedBox(height: 12),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: warmindoRed.withValues(alpha: 0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.error_outline,
+                                    color: warmindoRed,
+                                    size: 18,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Text(
+                                      _errorMessage!,
+                                      style: const TextStyle(
+                                        color: warmindoRed,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // TOMBOL LOGIN
+                  ElevatedButton(
+                    onPressed: _isLoading ? null : _handleLogin,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: warmindoGreen,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      elevation: 3,
+                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            height: 22,
+                            width: 22,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2.5,
+                            ),
+                          )
+                        : const Text(
+                            'MASUK APLIKASI',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 1.1,
+                            ),
+                          ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  const Text(
+                    'Aplikasi Mobile - Kelompok 4 SI',
+                    style: TextStyle(color: textMuted, fontSize: 11),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                ],
               ),
-              const SizedBox(height: 4),
-              Text(
-                'Aplikasi Mobile - Kelompok 4 SI',
-                style: TextStyle(color: greyMidText, fontSize: 11),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -307,19 +315,28 @@ class _LoginScreenState extends State<LoginScreen> {
       _errorMessage = null;
     });
 
-    await Future.delayed(const Duration(milliseconds: 600));
+    try {
+      final user = await DatabaseHelper.instance.login(username, password);
 
-    if (username == 'admin' && password == '123456') {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('session_username', username);
-      await prefs.setBool('is_logged_in', true);
+      if (user != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('session_username', user.username);
+        await prefs.setBool('is_logged_in', true);
 
-      setState(() => _isLoading = false);
-      Navigator.of(context).pushReplacementNamed('/home');
-    } else {
+        if (!mounted) return;
+        setState(() => _isLoading = false);
+
+        Navigator.of(context).pushReplacementNamed('/home');
+      } else {
+        setState(() {
+          _isLoading = false;
+          _errorMessage = 'Username atau password tidak ditemukan.';
+        });
+      }
+    } catch (e) {
       setState(() {
         _isLoading = false;
-        _errorMessage = 'Username atau password salah. Coba lagi.';
+        _errorMessage = 'Terjadi kesalahan database: $e';
       });
     }
   }
@@ -330,4 +347,47 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
     super.dispose();
   }
+}
+
+// === PAINTER UNTUK SPANDUK TIGA WARNA WARMINDO (MERAH -> KUNING -> HIJAU) ===
+class WarmindoHeaderPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // 1. Layer Dasar (Background Merah Utama - Paling Atas & Dominan)
+    Paint redPaint = Paint()..color = warmindoRed;
+    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), redPaint);
+
+    // 2. Layer Pita Kuning (Di Atas Merah, Melengkung Halus)
+    Paint yellowPaint = Paint()..color = warmindoYellow;
+    Path yellowPath = Path();
+    yellowPath.moveTo(0, size.height - 65);
+    yellowPath.quadraticBezierTo(
+      size.width * 0.4,
+      size.height - 15,
+      size.width,
+      size.height - 55,
+    );
+    yellowPath.lineTo(size.width, size.height);
+    yellowPath.lineTo(0, size.height);
+    yellowPath.close();
+    canvas.drawPath(yellowPath, yellowPaint);
+
+    // 3. Layer Pita Hijau (Di Atas Kuning, Paling Bawah Spanduk)
+    Paint greenPaint = Paint()..color = warmindoGreen;
+    Path greenPath = Path();
+    greenPath.moveTo(0, size.height - 35);
+    greenPath.quadraticBezierTo(
+      size.width * 0.4,
+      size.height,
+      size.width,
+      size.height - 30,
+    );
+    greenPath.lineTo(size.width, size.height);
+    greenPath.lineTo(0, size.height);
+    greenPath.close();
+    canvas.drawPath(greenPath, greenPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

@@ -9,7 +9,9 @@ import 'screens/odd_even_screen.dart';
 import 'screens/sum_total_screen.dart';
 import 'screens/stopwatch_screen.dart';
 import 'screens/test_db_screen.dart';
+import 'screens/test_ui.dart';
 
+import 'screens/auth_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,9 +39,10 @@ class MyApp extends StatelessWidget {
         '/sum_total': (context) => const SumTotalScreen(),
         '/stopwatch': (context) => const StopwatchScreen(),
         '/testdbscreen': (context) => const TestDbScreen(),
+        '/test-ui': (context) => const TestUi(),
       },
       // Halaman awal — cek session, kalau sudah login langsung ke home
-      home: const LoginScreen(),
+      home: const AuthWrapper(),
     );
   }
 }

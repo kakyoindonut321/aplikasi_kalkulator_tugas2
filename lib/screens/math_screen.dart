@@ -147,7 +147,6 @@ class _MathScreenState extends State<MathScreen> {
     required VoidCallback? onTap,
     Color? backgroundColor,
     Color? foregroundColor,
-    bool isAccent = false,
   }) {
     if (label.isEmpty || onTap == null) {
       return const SizedBox.shrink();
