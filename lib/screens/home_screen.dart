@@ -49,6 +49,12 @@ class HomeScreen extends StatelessWidget {
         'color': Colors.red,
         'route': '/testdbscreen',
       },
+        'title': 'Test UI',
+        'subtitle': 'Coba-coba desain tampilan',
+        'icon': Icons.design_services_rounded,
+        'color': Colors.blueGrey,
+        'route': '/test-ui',
+      }
     ];
 
     return Scaffold(
