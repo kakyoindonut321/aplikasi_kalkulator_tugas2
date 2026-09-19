@@ -128,11 +128,11 @@ class HomeScreen extends StatelessWidget {
                   // 3. Menu CRUD (Database Warmindo)
                   _buildMenuCard(
                     context: context,
-                    title: 'Menu CRUD',
-                    subtitle: 'Kelola data produk/pesanan berbasis database',
-                    icon: Icons.dataset_rounded,
+                    title: 'Daftar Menu Warmindo',
+                    subtitle: 'Kelola Daftar Menu',
+                    icon: Icons.soup_kitchen,
                     accentColor: Colors.deepOrange,
-                    onTap: () => Navigator.pushNamed(context, '/testdbscreen'),
+                    onTap: () => Navigator.pushNamed(context, '/crud'),
                   ),
                   const SizedBox(height: 12),
 
@@ -238,7 +238,7 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 16),
               ListTile(
                 leading: const Icon(Icons.calculate, color: warmindoGreen),
-                title: const Text('Operasi Matematika'),
+                title: const Text('Kalkulator'),
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   Navigator.pop(context);
@@ -300,11 +300,7 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                   // Buka layar konversi umur & hijriah (dapat dibuat/disesuaikan kemudian)
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Membuka Konversi Tanggal Hijriah & Umur'),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/kalender');
                 },
               ),
               ListTile(
@@ -317,7 +313,7 @@ class HomeScreen extends StatelessWidget {
                 trailing: const Icon(Icons.chevron_right),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, '/kalender');
+                  Navigator.pushNamed(context, '/kalender-weton');
                 },
               ),
             ],

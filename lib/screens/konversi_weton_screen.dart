@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+// === PALET WARNA TEMA WARMINDO ===
+const warmindoRed = Color(0xFFD32F2F); // Merah Warmindo / Indomie
+const warmindoDarkRed = Color(0xFFB71C1C); // Merah Gelap
+const warmindoYellow = Color(0xFFFFC107); // Kuning Mustard
+const warmindoGreen = Color(0xFF388E3C); // Hijau Aksen
+const white = Color(0xFFFFFFFF);
+const textDark = Color(0xFF212121);
+const cardBg = Color(0xFFFFF8E1); // Krem Lembut
+const greyText = Color(0xFF757575);
+const greyLightText = Color(0xFF9E9E9E);
+const greyMidText = Color(0xFF616161);
+
 class KonversiWetonScreen extends StatefulWidget {
   const KonversiWetonScreen({super.key});
 
@@ -141,30 +153,42 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
   }
 
   String _getMaknaKarakter(int neptu) {
-    if (neptu == 7)
+    if (neptu == 7) {
       return 'Pendito Kang Lelaku: Senang bepergian, tidak tahan berdiam diri di suatu tempat.';
-    if (neptu == 8)
+    }
+    if (neptu == 8) {
       return 'Lakune Geni: Suka marah, pendendam, namun pemberani.';
-    if (neptu == 9)
+    }
+    if (neptu == 9) {
       return 'Lakune Angin: Lincah, kebal terhadap guna-guna, tapi mudah terpengaruh.';
-    if (neptu == 10)
+    }
+    if (neptu == 10) {
       return 'Pendito Mbangun Teki: Suka menasihati, cerdas, tidak mudah tersinggung.';
-    if (neptu == 11)
+    }
+    if (neptu == 11) {
       return 'Lakune Setan: Tidak bisa diam, selalu ingin tahu, plin-plan.';
-    if (neptu == 12)
+    }
+    if (neptu == 12) {
       return 'Lakune Kembang: Suka mengalah, cinta damai, disukai banyak orang.';
-    if (neptu == 13)
+    }
+    if (neptu == 13) {
       return 'Lakune Lintang: Lemah lembut, ramah, suka menolong, tapi sering merasa kesepian.';
-    if (neptu == 14)
+    }
+    if (neptu == 14) {
       return 'Lakune Rembulan: Pendengar yang baik, pemberi solusi, mudah bergaul.';
-    if (neptu == 15)
+    }
+    if (neptu == 15) {
       return 'Lakune Srengenge: Berwibawa, tegas, pemaaf, dan bisa menjadi pencerah.';
-    if (neptu == 16)
+    }
+    if (neptu == 16) {
       return 'Lakune Banyu: Ramah, tenang, memiliki empati tinggi, mudah bergaul.';
-    if (neptu == 17)
+    }
+    if (neptu == 17) {
       return 'Lakune Bumi: Sabar, penyayang, namun jika marah bisa sangat menakutkan.';
-    if (neptu == 18)
+    }
+    if (neptu == 18) {
       return 'Lakune Paripurna: Egois, dominan, tapi punya kemampuan memimpin yang kuat.';
+    }
     return 'Karakter unik yang memiliki banyak potensi untuk dikembangkan.';
   }
 
@@ -174,6 +198,17 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
       initialDate: _selectedDate ?? DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime(2100),
+      builder: (context, child) => Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: const ColorScheme.light(
+            primary: warmindoRed,
+            onPrimary: white,
+            surface: white,
+            onSurface: textDark,
+          ),
+        ),
+        child: child!,
+      ),
     );
     if (picked != null && picked != _selectedDate) {
       setState(() {
@@ -186,50 +221,131 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: white,
       appBar: AppBar(
-        title: const Text('Weton & Saka Bali'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: warmindoRed,
+        centerTitle: true,
+        elevation: 0,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                color: warmindoYellow,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: warmindoYellow.withValues(alpha: 0.3),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.auto_awesome,
+                color: warmindoDarkRed,
+                size: 20,
+              ),
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'Weton & Saka Bali',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+                color: white,
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Hitung Penanggalan Tradisional',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
+            // === BANNER INFORMASI TEMA WARMINDO ===
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: cardBg,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: warmindoYellow),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: const [
+                  Text(
+                    'Hitung Penanggalan Tradisional',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: warmindoDarkRed,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    'Masukkan tanggal masehi untuk mengetahui Weton Jawa dan elemen Kalender Saka Bali (Pawukon).',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(color: greyMidText, fontSize: 13),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 8),
-            const Text(
-              'Masukkan tanggal masehi untuk mengetahui Weton Jawa dan elemen Kalender Saka Bali (Pawukon).',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
+            // === TOMBOL PILIH TANGGAL WARMINDO ===
             ElevatedButton.icon(
               onPressed: () => _selectDate(context),
-              icon: const Icon(Icons.calendar_month),
+              icon: const Icon(Icons.calendar_month, color: warmindoDarkRed),
               label: Text(
                 _selectedDate == null
                     ? 'Pilih Tanggal'
                     : 'Tanggal: ${_selectedDate!.day}-${_selectedDate!.month}-${_selectedDate!.year}',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: warmindoDarkRed,
+                ),
               ),
               style: ElevatedButton.styleFrom(
+                backgroundColor: warmindoYellow,
+                foregroundColor: warmindoDarkRed,
+                elevation: 3,
                 padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  side: const BorderSide(color: white, width: 1.5),
+                ),
+                shadowColor: warmindoYellow.withValues(alpha: 0.4),
               ),
             ),
 
-            const SizedBox(height: 32),
+            const SizedBox(height: 24),
 
             if (_resultWeton.isNotEmpty) ...[
               // KARTU WETON JAWA
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+              Container(
+                decoration: BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: warmindoRed.withValues(alpha: 0.3)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -238,18 +354,32 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.auto_awesome, color: Colors.brown),
-                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: warmindoRed.withValues(alpha: 0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.auto_awesome,
+                              color: warmindoRed,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
                           const Text(
                             'Weton Jawa',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: warmindoDarkRed,
                             ),
                           ),
                         ],
                       ),
-                      const Divider(height: 32),
+                      const SizedBox(height: 12),
+                      const Divider(color: Colors.black12, height: 1),
+                      const SizedBox(height: 16),
 
                       _buildResultRow('Weton', _resultWeton),
                       const SizedBox(height: 12),
@@ -257,29 +387,61 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
                       const SizedBox(height: 12),
                       _buildResultRow('Wuku', _resultWuku),
 
-                      const SizedBox(height: 24),
-                      const Text(
-                        'Makna Karakter',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        _resultKarakter,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontStyle: FontStyle.italic),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(14),
+                        decoration: BoxDecoration(
+                          color: cardBg,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                            color: warmindoYellow.withValues(alpha: 0.8),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            const Text(
+                              'Makna Karakter',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: warmindoDarkRed,
+                                fontSize: 13,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              _resultKarakter,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: textDark,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 18),
 
               // KARTU SAKA BALI
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
+              Container(
+                decoration: BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: warmindoGreen.withValues(alpha: 0.3),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -288,18 +450,32 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(Icons.brightness_5, color: Colors.orange),
-                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                              color: warmindoGreen.withValues(alpha: 0.1),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(
+                              Icons.brightness_5,
+                              color: warmindoGreen,
+                              size: 20,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
                           const Text(
                             'Kalender Saka Bali',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
+                              color: warmindoGreen,
                             ),
                           ),
                         ],
                       ),
-                      const Divider(height: 32),
+                      const SizedBox(height: 12),
+                      const Divider(color: Colors.black12, height: 1),
+                      const SizedBox(height: 16),
 
                       _buildResultRow('Tahun Saka', _resultSakaYear),
                       const SizedBox(height: 12),
@@ -320,11 +496,19 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
                   padding: EdgeInsets.all(32.0),
                   child: Text(
                     'Silakan pilih tanggal terlebih dahulu',
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: greyLightText),
                   ),
                 ),
               ),
             ],
+
+            const SizedBox(height: 20),
+            Center(
+              child: Text(
+                'Kalender Tradisional - Kelompok 4 SI',
+                style: TextStyle(fontSize: 10, color: greyLightText),
+              ),
+            ),
           ],
         ),
       ),
@@ -338,13 +522,18 @@ class _KonversiWetonScreenState extends State<KonversiWetonScreen> {
         Text(
           label,
           style: const TextStyle(
-            color: Colors.grey,
+            color: greyText,
             fontWeight: FontWeight.w500,
+            fontSize: 14,
           ),
         ),
         Text(
           value,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+            color: textDark,
+          ),
         ),
       ],
     );

@@ -97,8 +97,6 @@ class _MathScreenState extends State<MathScreen> {
         break;
     }
 
-    // Mengatasi floating-point precision error.
-    // Contoh: 0.1 + 0.2 -> 0.3
     result = double.parse(result.toStringAsFixed(10));
 
     setState(() {
@@ -141,7 +139,6 @@ class _MathScreenState extends State<MathScreen> {
     });
   }
 
-  // Helper untuk membuat tombol dengan efek sentuh / feedback yang responsif
   Widget _buildCalcButton({
     required String label,
     required VoidCallback? onTap,
@@ -153,20 +150,22 @@ class _MathScreenState extends State<MathScreen> {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(4.0),
       child: FilledButton(
         onPressed: onTap,
         style: FilledButton.styleFrom(
           backgroundColor: backgroundColor,
           foregroundColor: foregroundColor,
+          elevation: 2,
+          shadowColor: Colors.black26,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(16),
           ),
           padding: EdgeInsets.zero,
         ),
         child: Text(
           label,
-          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -174,52 +173,67 @@ class _MathScreenState extends State<MathScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    // Definisi Warna Khas Warmindo
+    const warmindoRed = Color(0xFFE52320);
+    const warmindoYellow = Color(0xFFFFCC00);
+    const warmindoGreen = Color(0xFF009944);
+    const warmindoBg = Color(0xFFFBF6EE);
 
     return Scaffold(
+      backgroundColor: warmindoBg,
       appBar: AppBar(
-        title: const Text('Kalkulator'),
-        backgroundColor: colorScheme.inversePrimary,
+        title: const Text(
+          'Kalkulator Kasir',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: warmindoRed,
+        elevation: 3,
+        centerTitle: true,
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // Area Display
+            // Display Area dengan Container Berwarna & Shadow
             Expanded(
               flex: 2,
               child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: warmindoYellow, width: 2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(12),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
                 ),
                 alignment: Alignment.bottomRight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    // Indikator Operator di Atas
                     Text(
                       _operator.isNotEmpty ? '$_num1 $_operator' : '',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500,
-                        color: colorScheme.primary,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w600,
+                        color: warmindoRed,
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
-                    // Display Angka Utama
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       alignment: Alignment.centerRight,
                       child: Text(
                         _display,
-                        style: TextStyle(
-                          fontSize: 60,
+                        style: const TextStyle(
+                          fontSize: 56,
                           fontWeight: FontWeight.bold,
-                          color: colorScheme.onSurface,
+                          color: Color(0xFF222222),
                         ),
                       ),
                     ),
@@ -228,153 +242,139 @@ class _MathScreenState extends State<MathScreen> {
               ),
             ),
 
-            const Divider(height: 1, indent: 16, endIndent: 16),
-
-            // Area Keypad
+            // Keypad Area
             Expanded(
               flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
                 child: GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 4,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 8,
                   childAspectRatio: 1.0,
                   children: [
                     // Baris 1
                     _buildCalcButton(
                       label: 'C',
                       onTap: _onClear,
-                      backgroundColor: colorScheme.errorContainer,
-                      foregroundColor: colorScheme.onErrorContainer,
+                      backgroundColor: warmindoRed,
+                      foregroundColor: Colors.white,
                     ),
-
                     const SizedBox.shrink(),
-
                     _buildCalcButton(
                       label: '⌫',
                       onTap: _onBackspace,
-                      backgroundColor: colorScheme.secondaryContainer,
-                      foregroundColor: colorScheme.onSecondaryContainer,
+                      backgroundColor: const Color(0xFFE0E0E0),
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '÷',
                       onTap: () => _onOperatorPressed('/'),
-                      backgroundColor: colorScheme.primaryContainer,
-                      foregroundColor: colorScheme.onPrimaryContainer,
+                      backgroundColor: warmindoYellow,
+                      foregroundColor: Colors.black87,
                     ),
 
                     // Baris 2
                     _buildCalcButton(
                       label: '7',
                       onTap: () => _onNumberPressed('7'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '8',
                       onTap: () => _onNumberPressed('8'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '9',
                       onTap: () => _onNumberPressed('9'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: 'x',
                       onTap: () => _onOperatorPressed('x'),
-                      backgroundColor: colorScheme.primaryContainer,
-                      foregroundColor: colorScheme.onPrimaryContainer,
+                      backgroundColor: warmindoYellow,
+                      foregroundColor: Colors.black87,
                     ),
 
                     // Baris 3
                     _buildCalcButton(
                       label: '4',
                       onTap: () => _onNumberPressed('4'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '5',
                       onTap: () => _onNumberPressed('5'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '6',
                       onTap: () => _onNumberPressed('6'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '-',
                       onTap: () => _onOperatorPressed('-'),
-                      backgroundColor: colorScheme.primaryContainer,
-                      foregroundColor: colorScheme.onPrimaryContainer,
+                      backgroundColor: warmindoYellow,
+                      foregroundColor: Colors.black87,
                     ),
 
                     // Baris 4
                     _buildCalcButton(
                       label: '1',
                       onTap: () => _onNumberPressed('1'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '2',
                       onTap: () => _onNumberPressed('2'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '3',
                       onTap: () => _onNumberPressed('3'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '+',
                       onTap: () => _onOperatorPressed('+'),
-                      backgroundColor: colorScheme.primaryContainer,
-                      foregroundColor: colorScheme.onPrimaryContainer,
+                      backgroundColor: warmindoYellow,
+                      foregroundColor: Colors.black87,
                     ),
 
                     // Baris 5
                     const SizedBox.shrink(),
-
                     _buildCalcButton(
                       label: '0',
                       onTap: () => _onNumberPressed('0'),
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '.',
                       onTap: _onDecimalPressed,
-                      backgroundColor: colorScheme.surfaceContainerHigh,
-                      foregroundColor: colorScheme.onSurface,
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black87,
                     ),
-
                     _buildCalcButton(
                       label: '=',
                       onTap: _onCalculate,
-                      backgroundColor: colorScheme.primary,
-                      foregroundColor: colorScheme.onPrimary,
+                      backgroundColor: warmindoGreen,
+                      foregroundColor: Colors.white,
                     ),
                   ],
                 ),

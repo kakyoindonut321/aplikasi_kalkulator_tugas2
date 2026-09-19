@@ -148,7 +148,7 @@ class HelpLogoutScreen extends StatelessWidget {
                     Text(
                       '1. Halaman Beranda berisi 5 menu utama sesuai kategori aplikasi.\n'
                       '2. Fitur Stopwatch dapat digunakan kapan saja tanpa terhenti saat berpindah menu.\n'
-                      '3. Gunakan menu CRUD untuk melakukan pengelolaan data produk/pesanan.\n'
+                      '3. Gunakan menu CRUD untuk melakukan pengelolaan data menu warmindo.\n'
                       '4. Tombol Logout di bawah digunakan untuk mengakhiri sesi login.',
                       style: TextStyle(
                         fontSize: 13,

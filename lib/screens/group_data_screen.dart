@@ -77,7 +77,7 @@ class GroupDataScreen extends StatelessWidget {
                   // Avatar / Icon Profil Nomor Urut (Aksen Warmindo)
                   CircleAvatar(
                     radius: 26,
-                    backgroundColor: warmindoRed,
+                    backgroundColor: warmindoGreen,
                     child: Text(
                       '${index + 1}',
                       style: const TextStyle(
