@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/kalender_screen.dart';
@@ -7,6 +8,7 @@ import 'screens/math_screen.dart';
 import 'screens/odd_even_screen.dart';
 import 'screens/sum_total_screen.dart';
 import 'screens/stopwatch_screen.dart';
+import 'screens/test_db_screen.dart';
 
 
 void main() {
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/odd_even': (context) => const OddEvenScreen(),
         '/sum_total': (context) => const SumTotalScreen(),
         '/stopwatch': (context) => const StopwatchScreen(),
+        '/testdbscreen': (context) => const TestDbScreen(),
       },
       // Halaman awal — cek session, kalau sudah login langsung ke home
       home: const LoginScreen(),

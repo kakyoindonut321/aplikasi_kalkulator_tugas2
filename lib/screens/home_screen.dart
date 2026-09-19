@@ -43,6 +43,12 @@ class HomeScreen extends StatelessWidget {
         'route': '/stopwatch',
       },
       {
+        'title': 'test DB',
+        'subtitle': '',
+        'icon': Icons.data_array_rounded,
+        'color': Colors.red,
+        'route': '/testdbscreen',
+      },
         'title': 'Test UI',
         'subtitle': 'Coba-coba desain tampilan',
         'icon': Icons.design_services_rounded,
@@ -63,7 +69,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.pushReplacementNamed(context, '/login');
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -73,10 +79,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             const Text(
               'Selamat Datang!!!',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(
@@ -91,8 +94,8 @@ class HomeScreen extends StatelessWidget {
                   crossAxisCount: 2,
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 12,
-                  // PERUBAHAN 1: Ubah rasio kartu agar lebih tinggi 
-                  childAspectRatio: 1.1, 
+                  // PERUBAHAN 1: Ubah rasio kartu agar lebih tinggi
+                  childAspectRatio: 1.1,
                 ),
                 itemBuilder: (context, index) {
                   final item = menuItems[index];
@@ -110,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                       child: Padding(
                         // PERUBAHAN 2: Kurangi padding dalam kartu agar ruang lebih lega
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, 
+                          horizontal: 8.0,
                           vertical: 12.0,
                         ),
                         child: Column(
@@ -119,7 +122,8 @@ class HomeScreen extends StatelessWidget {
                             CircleAvatar(
                               // PERUBAHAN 3: Sedikit mengecilkan ukuran icon/avatar
                               radius: 22,
-                              backgroundColor: (item['color'] as Color).withValues(alpha: 0.15),
+                              backgroundColor: (item['color'] as Color)
+                                  .withValues(alpha: 0.15),
                               child: Icon(
                                 item['icon'] as IconData,
                                 color: item['color'] as Color,
