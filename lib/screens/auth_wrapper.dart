@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'login_screen.dart';
 import 'home_screen.dart';
+import 'main_navigation_screen.dart';
 
 class AuthWrapper extends StatefulWidget {
   const AuthWrapper({super.key});
@@ -26,12 +27,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
     if (!mounted) return;
 
     if (isLoggedIn) {
-      // Jika sudah login -> Redirect ke HomeScreen
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
       );
     } else {
-      // Jika belum login -> Redirect ke LoginScreen
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginScreen()),
       );

@@ -11,6 +11,7 @@ import 'screens/stopwatch_screen.dart';
 import 'screens/test_db_screen.dart';
 import 'screens/test_ui.dart';
 
+import 'screens/main_navigation_screen.dart';
 import 'screens/auth_wrapper.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       // Mendaftarkan semua route untuk navigasi
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => const MainNavigationScreen(),
         '/kalender': (context) => const KalenderScreen(),
         '/group': (context) => const GroupDataScreen(),
         '/math': (context) => const MathScreen(),

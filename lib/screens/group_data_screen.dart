@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+// === WARMINDO COLOR PALETTE ===
+const Color warmindoRed = Color(0xFFE51A24);
+const Color warmindoYellow = Color(0xFFFFD100);
+const Color warmindoGreen = Color(0xFF008752);
+const Color warmindoBg = Color(0xFFFAF7F2);
+const Color textDark = Color(0xFF2C2C2C);
+
 class GroupDataScreen extends StatelessWidget {
   const GroupDataScreen({super.key});
 
@@ -34,10 +41,16 @@ class GroupDataScreen extends StatelessWidget {
     ];
 
     return Scaffold(
+      backgroundColor: warmindoBg,
       appBar: AppBar(
-        title: const Text('Data Kelompok'),
+        title: const Text(
+          'Daftar Anggota Kelompok',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: warmindoRed,
+        foregroundColor: Colors.white,
+        elevation: 0,
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16.0),
@@ -48,24 +61,29 @@ class GroupDataScreen extends StatelessWidget {
           return Card(
             elevation: 2,
             margin: const EdgeInsets.only(bottom: 12.0),
+            color: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide(
+                color: warmindoYellow.withValues(alpha: 0.6),
+                width: 1.5,
+              ),
             ),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start, // Ditambahkan agar avatar tetap rata atas jika Card memanjang
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Avatar / Icon Profil
+                  // Avatar / Icon Profil Nomor Urut (Aksen Warmindo)
                   CircleAvatar(
-                    radius: 28,
-                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                    radius: 26,
+                    backgroundColor: warmindoRed,
                     child: Text(
                       '${index + 1}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        color: warmindoYellow,
                       ),
                     ),
                   ),
@@ -81,6 +99,7 @@ class GroupDataScreen extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: textDark,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -89,24 +108,53 @@ class GroupDataScreen extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.grey[700],
                             fontSize: 14,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
-                        const SizedBox(height: 6),
-                        
-                        // PERUBAHAN: Mengganti Row dengan Wrap
+                        const SizedBox(height: 8),
+
+                        // Wrap Chip bertema Hijriah/Sawi Warmindo
                         Wrap(
-                          spacing: 8.0, // Jarak horizontal antar Chip
-                          runSpacing: 4.0, // Jarak vertikal jika Chip turun ke baris baru
+                          spacing: 8.0,
+                          runSpacing: 4.0,
                           children: [
                             Chip(
-                              avatar: const Icon(Icons.school, size: 16),
-                              label: Text(member['prodi']!),
+                              avatar: const Icon(
+                                Icons.school,
+                                size: 16,
+                                color: warmindoGreen,
+                              ),
+                              label: Text(
+                                member['prodi']!,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              backgroundColor: warmindoGreen.withValues(
+                                alpha: 0.12,
+                              ),
+                              side: BorderSide.none,
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
                             ),
                             Chip(
-                              avatar: const Icon(Icons.calendar_today, size: 16),
-                              label: Text(member['angkatan']!),
+                              avatar: const Icon(
+                                Icons.calendar_today,
+                                size: 15,
+                                color: warmindoGreen,
+                              ),
+                              label: Text(
+                                member['angkatan']!,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              backgroundColor: warmindoGreen.withValues(
+                                alpha: 0.12,
+                              ),
+                              side: BorderSide.none,
                               visualDensity: VisualDensity.compact,
                               padding: EdgeInsets.zero,
                             ),
