@@ -34,18 +34,43 @@ class _MathScreenState extends State<MathScreen> {
     });
   }
 
+  void _onDecimalPressed() {
+    setState(() {
+      if (_isResult) {
+        _num1 = '0.';
+        _operator = '';
+        _num2 = '';
+        _display = _num1;
+        _isResult = false;
+      } else if (_operator.isEmpty) {
+        if (!_num1.contains('.')) {
+          _num1 = _num1.isEmpty ? '0.' : '$_num1.';
+          _display = _num1;
+        }
+      } else {
+        if (!_num2.contains('.')) {
+          _num2 = _num2.isEmpty ? '0.' : '$_num2.';
+          _display = _num2;
+        }
+      }
+    });
+  }
+
   void _onOperatorPressed(String op) {
     setState(() {
       if (_num1.isEmpty) {
         _num1 = '0';
       }
+
       if (_isResult) {
         _isResult = false;
       }
+
       if (_num1.isNotEmpty && _operator.isNotEmpty && _num2.isNotEmpty) {
         _onCalculate();
         _isResult = false;
       }
+
       _operator = op;
     });
   }
@@ -72,11 +97,15 @@ class _MathScreenState extends State<MathScreen> {
         break;
     }
 
+    // Mengatasi floating-point precision error.
+    // Contoh: 0.1 + 0.2 -> 0.3
+    result = double.parse(result.toStringAsFixed(10));
+
     setState(() {
-      _display = result == result.toInt() 
-          ? result.toInt().toString() 
+      _display = result == result.toInt()
+          ? result.toInt().toString()
           : result.toString();
-          
+
       _num1 = _display;
       _operator = '';
       _num2 = '';
@@ -112,19 +141,18 @@ class _MathScreenState extends State<MathScreen> {
     });
   }
 
-  // Helper untuk membuat Tombol dengan Efek Sentuh / Feedback yang Responsif
+  // Helper untuk membuat tombol dengan efek sentuh / feedback yang responsif
   Widget _buildCalcButton({
     required String label,
     required VoidCallback? onTap,
     Color? backgroundColor,
     Color? foregroundColor,
+    bool isAccent = false,
   }) {
     if (label.isEmpty || onTap == null) {
-      return const SizedBox.shrink(); // Widget kosong untuk layout
+      return const SizedBox.shrink();
     }
 
-    // Menggunakan FilledButton / ElevatedButton bawaan Material 3
-    // yang otomatis punya efek tekan (ripple effect & elevation animation)
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: FilledButton(
@@ -139,10 +167,7 @@ class _MathScreenState extends State<MathScreen> {
         ),
         child: Text(
           label,
-          style: const TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
+          style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -165,7 +190,10 @@ class _MathScreenState extends State<MathScreen> {
               flex: 2,
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
+                ),
                 alignment: Alignment.bottomRight,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -180,7 +208,9 @@ class _MathScreenState extends State<MathScreen> {
                         color: colorScheme.primary,
                       ),
                     ),
+
                     const SizedBox(height: 8),
+
                     // Display Angka Utama
                     FittedBox(
                       fit: BoxFit.scaleDown,
@@ -201,7 +231,7 @@ class _MathScreenState extends State<MathScreen> {
 
             const Divider(height: 1, indent: 16, endIndent: 16),
 
-            // Area Keypad (Dibuat kontras dan responsif)
+            // Area Keypad
             Expanded(
               flex: 5,
               child: Padding(
@@ -220,15 +250,18 @@ class _MathScreenState extends State<MathScreen> {
                       backgroundColor: colorScheme.errorContainer,
                       foregroundColor: colorScheme.onErrorContainer,
                     ),
+
                     const SizedBox.shrink(),
+
                     _buildCalcButton(
                       label: '⌫',
                       onTap: _onBackspace,
                       backgroundColor: colorScheme.secondaryContainer,
                       foregroundColor: colorScheme.onSecondaryContainer,
                     ),
+
                     _buildCalcButton(
-                      label: '/',
+                      label: '÷',
                       onTap: () => _onOperatorPressed('/'),
                       backgroundColor: colorScheme.primaryContainer,
                       foregroundColor: colorScheme.onPrimaryContainer,
@@ -241,18 +274,21 @@ class _MathScreenState extends State<MathScreen> {
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '8',
                       onTap: () => _onNumberPressed('8'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '9',
                       onTap: () => _onNumberPressed('9'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: 'x',
                       onTap: () => _onOperatorPressed('x'),
@@ -267,18 +303,21 @@ class _MathScreenState extends State<MathScreen> {
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '5',
                       onTap: () => _onNumberPressed('5'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '6',
                       onTap: () => _onNumberPressed('6'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '-',
                       onTap: () => _onOperatorPressed('-'),
@@ -293,18 +332,21 @@ class _MathScreenState extends State<MathScreen> {
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '2',
                       onTap: () => _onNumberPressed('2'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '3',
                       onTap: () => _onNumberPressed('3'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
+
                     _buildCalcButton(
                       label: '+',
                       onTap: () => _onOperatorPressed('+'),
@@ -314,13 +356,21 @@ class _MathScreenState extends State<MathScreen> {
 
                     // Baris 5
                     const SizedBox.shrink(),
+
                     _buildCalcButton(
                       label: '0',
                       onTap: () => _onNumberPressed('0'),
                       backgroundColor: colorScheme.surfaceContainerHigh,
                       foregroundColor: colorScheme.onSurface,
                     ),
-                    const SizedBox.shrink(),
+
+                    _buildCalcButton(
+                      label: '.',
+                      onTap: _onDecimalPressed,
+                      backgroundColor: colorScheme.surfaceContainerHigh,
+                      foregroundColor: colorScheme.onSurface,
+                    ),
+
                     _buildCalcButton(
                       label: '=',
                       onTap: _onCalculate,
