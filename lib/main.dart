@@ -1,5 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
+
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/group_data_screen.dart';
@@ -7,6 +8,7 @@ import 'screens/math_screen.dart';
 import 'screens/odd_even_screen.dart';
 import 'screens/sum_total_screen.dart';
 import 'screens/stopwatch_screen.dart';
+import 'screens/test_db_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/odd_even': (context) => const OddEvenScreen(),
         '/sum_total': (context) => const SumTotalScreen(),
         '/stopwatch': (context) => const StopwatchScreen(),
+        '/testdbscreen': (context) => const TestDbScreen(),
       },
       // Halaman awal
       home: const LoginScreen(),
