@@ -7,6 +7,7 @@ import 'screens/math_screen.dart';
 import 'screens/odd_even_screen.dart';
 import 'screens/sum_total_screen.dart';
 import 'screens/stopwatch_screen.dart';
+import 'screens/test_ui.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/odd_even': (context) => const OddEvenScreen(),
         '/sum_total': (context) => const SumTotalScreen(),
         '/stopwatch': (context) => const StopwatchScreen(),
+        '/test-ui': (context) => const TestUi(),
       },
       // Halaman awal
       home: const LoginScreen(),
