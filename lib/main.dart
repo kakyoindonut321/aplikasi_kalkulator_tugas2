@@ -1,13 +1,13 @@
-// main.dart
 import 'package:flutter/material.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'screens/kalender_screen.dart';
 import 'screens/group_data_screen.dart';
 import 'screens/math_screen.dart';
 import 'screens/odd_even_screen.dart';
 import 'screens/sum_total_screen.dart';
 import 'screens/stopwatch_screen.dart';
-import 'screens/test_ui.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -28,14 +28,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
+        '/kalender': (context) => const KalenderScreen(),
         '/group': (context) => const GroupDataScreen(),
         '/math': (context) => const MathScreen(),
         '/odd_even': (context) => const OddEvenScreen(),
         '/sum_total': (context) => const SumTotalScreen(),
         '/stopwatch': (context) => const StopwatchScreen(),
-        '/test-ui': (context) => const TestUi(),
       },
-      // Halaman awal
+      // Halaman awal — cek session, kalau sudah login langsung ke home
       home: const LoginScreen(),
     );
   }
