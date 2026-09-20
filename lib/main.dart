@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'screens/login_screen.dart';
-import 'screens/home_screen.dart';
 import 'screens/kalender_screen.dart';
 import 'screens/konversi_weton_screen.dart';
 import 'screens/group_data_screen.dart';
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aplikasi Tugas Kelompok',
+      title: 'Aplikasi Warmindo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
