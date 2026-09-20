@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'WARMINDO APP',
+                              'WARMIN DO',
                               style: TextStyle(
                                 color: warmindoYellow,
                                 fontWeight: FontWeight.w900,
