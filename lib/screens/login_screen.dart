@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       // Title WARMINDO (Sangat kontras di atas Merah)
                       const Text(
-                        'WARMINDO',
+                        'WARMIN DO',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const Text(
-                        'KASIR & MANAJEMEN MENU',
+                        'MANAJEMEN MENU',
                         style: TextStyle(
                           color: warmindoYellow,
                           fontSize: 12,
