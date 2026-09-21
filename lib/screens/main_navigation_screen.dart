@@ -108,7 +108,7 @@ class HelpLogoutScreen extends StatelessWidget {
       backgroundColor: warmindoBg,
       appBar: AppBar(
         title: const Text(
-          'Bantuan & Pengaturan',
+          'Bantuan & Logout',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: warmindoRed,
